@@ -1,0 +1,51 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Grades Form</h2>
+
+  <form (ngSubmit)="saveGrade()" #gradeForm="ngForm" class="form">
+    <label>Student</label>
+    <select [(ngModel)]="grade.studentId" name="studentId" required>
+      <option value="" disabled selected>Select a student</option>
+      <option *ngFor="let s of students" [value]="s.id">{{ s.name }}</option>
+    </select>
+
+    <label>Subject</label>
+    <select [(ngModel)]="grade.subjectId" name="subjectId" required>
+      <option value="" disabled selected>Select a subject</option>
+      <option *ngFor="let subj of subjects" [value]="subj.id">{{ subj.name }}</option>
+    </select>
+
+    <label>Grade</label>
+    <input [(ngModel)]="grade.grade" name="grade" type="number" required placeholder="Enter grade">
+
+    <div class="button-group">
+      <button type="submit" class="btn-add">{{ editMode ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="resetForm()" class="btn-clear">Clear</button>
+    </div>
+  </form>
+
+  <h2>Grades List</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Student</th>
+      <th>Subject</th>
+      <th>Grade</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let g of grades">
+      <td>{{ getStudentName(g.studentId) }}</td>
+      <td>{{ getSubjectName(g.subjectId) }}</td>
+      <td>{{ g.grade }}</td>
+      <td>
+        <button (click)="editGrade(g)" class="btn-edit">Edit</button>
+        <button (click)="deleteGrade(g.id!)" class="btn-delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

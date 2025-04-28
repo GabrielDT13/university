@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Students Form</h2>
+
+  <form (ngSubmit)="saveStudent()" #studentForm="ngForm" class="form">
+    <label>Name</label>
+    <input [(ngModel)]="student.name" name="name" required placeholder="Enter student name">
+
+    <label>Email</label>
+    <input [(ngModel)]="student.email" name="email" type="email" required placeholder="Enter student email">
+
+    <div class="button-group">
+      <button type="submit" class="btn-add">{{ editMode ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="resetForm()" class="btn-clear">Clear</button>
+    </div>
+  </form>
+
+  <h2>Students List</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of students">
+      <td>{{ s.name }}</td>
+      <td>{{ s.email }}</td>
+      <td>
+        <button (click)="editStudent(s)" class="btn-edit">Edit</button>
+        <button (click)="deleteStudent(s.id!)" class="btn-delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
