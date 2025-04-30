@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="container">
+  <h2>Supplier Form</h2>
+  <form (ngSubmit)="saveSupplier()" class="form">
+    <label>Name</label>
+    <input [(ngModel)]="supplier.name" name="name" required>
+    <label>Contact</label>
+    <input [(ngModel)]="supplier.contact" name="contact" required>
+    <div class="button-group">
+      <button type="submit" class="btn-add">{{ editMode ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="resetForm()" class="btn-clear">Clear</button>
+    </div>
+  </form>
+
+  <table>
+    <thead><tr><th>Name</th><th>Contact</th><th>Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let s of suppliers">
+      <td>{{ s.name }}</td>
+      <td>{{ s.contact }}</td>
+      <td>
+        <button (click)="editSupplier(s)" class="btn-edit">Edit</button>
+        <button (click)="deleteSupplier(s.id!)" class="btn-delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

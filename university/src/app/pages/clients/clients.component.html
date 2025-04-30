@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div class="container mt-4">
+  <h2 class="mb-3">Client Form</h2>
+  <form (ngSubmit)="saveClient()" class="border p-3 rounded bg-light">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input [(ngModel)]="client.name" name="name" required class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input [(ngModel)]="client.email" name="email" type="email" required class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success me-2">{{ editMode ? 'Update' : 'Add' }}</button>
+    <button type="button" (click)="resetForm()" class="btn btn-secondary">Clear</button>
+  </form>
+
+  <h3 class="mt-4">Clients List</h3>
+  <table class="table table-striped mt-2">
+    <thead class="table-light">
+    <tr><th>Name</th><th>Email</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let c of clients">
+      <td>{{ c.name }}</td>
+      <td>{{ c.email }}</td>
+      <td>
+        <button (click)="editClient(c)" class="btn btn-warning btn-sm me-2">Edit</button>
+        <button (click)="deleteClient(c.id!)" class="btn btn-danger btn-sm">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

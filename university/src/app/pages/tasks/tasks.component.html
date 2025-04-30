@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="container">
+  <h2>Task Form</h2>
+  <form (ngSubmit)="saveTask()" class="form">
+    <label>Employee</label>
+    <select [(ngModel)]="task.employeeId" name="employeeId" required>
+      <option *ngFor="let e of employees" [value]="e.id">{{ e.name }}</option>
+    </select>
+
+    <label>Department</label>
+    <select [(ngModel)]="task.departmentId" name="departmentId" required>
+      <option *ngFor="let d of departments" [value]="d.id">{{ d.name }}</option>
+    </select>
+
+    <label>Description</label>
+    <input [(ngModel)]="task.description" name="description" required>
+
+    <div class="button-group">
+      <button type="submit" class="btn-add">{{ editMode ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="resetForm()" class="btn-clear">Clear</button>
+    </div>
+  </form>
+
+  <table>
+    <thead><tr><th>Employee</th><th>Department</th><th>Description</th><th>Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let t of tasks">
+      <td>{{ getEmployeeName(t.employeeId) }}</td>
+      <td>{{ getDepartmentName(t.departmentId) }}</td>
+      <td>{{ t.description }}</td>
+      <td>
+        <button (click)="editTask(t)" class="btn-edit">Edit</button>
+        <button (click)="deleteTask(t.id!)" class="btn-delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

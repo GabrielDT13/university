@@ -1,0 +1,25 @@
+<app-header></app-header>
+<div class="container">
+  <h2>Department Form</h2>
+  <form (ngSubmit)="saveDepartment()" class="form">
+    <label>Name</label>
+    <input [(ngModel)]="department.name" name="name" required>
+    <div class="button-group">
+      <button type="submit" class="btn-add">{{ editMode ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="resetForm()" class="btn-clear">Clear</button>
+    </div>
+  </form>
+
+  <table>
+    <thead><tr><th>Name</th><th>Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let d of departments">
+      <td>{{ d.name }}</td>
+      <td>
+        <button (click)="editDepartment(d)" class="btn-edit">Edit</button>
+        <button (click)="deleteDepartment(d.id!)" class="btn-delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

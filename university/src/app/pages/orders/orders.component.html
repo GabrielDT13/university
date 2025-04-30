@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="container">
+  <h2>Order Form</h2>
+  <form (ngSubmit)="saveOrder()" class="form">
+    <label>Client</label>
+    <select [(ngModel)]="order.clientId" name="clientId" required>
+      <option *ngFor="let c of clients" [value]="c.id">{{ c.name }}</option>
+    </select>
+
+    <label>Product</label>
+    <select [(ngModel)]="order.productId" name="productId" required>
+      <option *ngFor="let p of products" [value]="p.id">{{ p.name }}</option>
+    </select>
+
+    <label>Quantity</label>
+    <input [(ngModel)]="order.quantity" name="quantity" type="number" required>
+
+    <div class="button-group">
+      <button type="submit" class="btn-add">{{ editMode ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="resetForm()" class="btn-clear">Clear</button>
+    </div>
+  </form>
+
+  <table>
+    <thead><tr><th>Client</th><th>Product</th><th>Quantity</th><th>Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let o of orders">
+      <td>{{ getClientName(o.clientId) }}</td>
+      <td>{{ getProductName(o.productId) }}</td>
+      <td>{{ o.quantity }}</td>
+      <td>
+        <button (click)="editOrder(o)" class="btn-edit">Edit</button>
+        <button (click)="deleteOrder(o.id!)" class="btn-delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

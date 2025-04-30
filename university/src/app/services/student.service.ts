@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, deleteDoc, updateDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  addDoc,
+  collectionData,
+  doc,
+  deleteDoc,
+  updateDoc,
+  getDocs, setDoc
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Student } from '../models/student.model';
 
@@ -9,9 +18,16 @@ import { Student } from '../models/student.model';
 export class StudentService {
   constructor(private firestore: Firestore) {}
 
-  addStudent(student: Student) {
-    const studentRef = collection(this.firestore, 'students');
-    return addDoc(studentRef, student);
+  async addStudent(student: Student) {
+    const studentsCollection = collection(this.firestore, 'students');
+
+    const snapshot = await getDocs(studentsCollection);
+    const count = snapshot.size + 1;
+
+    const newId = `student_${count}`;
+    const studentDoc = doc(this.firestore, `students/${newId}`);
+
+    return setDoc(studentDoc, student);
   }
 
   getStudents(): Observable<Student[]> {
